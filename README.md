@@ -55,6 +55,19 @@ This notebook will guide you through:
 3. Training the model for 50 steps
 4. Comparing baseline vs. fine-tuned performance
 
+
+## 📊 Results (Still a work in progress)
+
+### SFT on MBPP (50 steps)
+
+| Metric | Baseline | After SFT | Improvement |
+|--------|----------|-----------|-------------|
+| Loss   | 1.5811   | 0.0421    | 97.3% ↓     |
+| Code Quality | ❌ Generic | ✅ Task-specific | Significant |
+
+*Results from training on 200 examples, evaluated on held-out test set*
+
+
 ## 📁 Project Structure
 
 ```
@@ -85,52 +98,6 @@ PostTrain-Lab/
 
 **Legend:** ✅ Complete | 🚧 In Progress | 📋 Planned
 
-## 🎓 Learning Path
-
-### Beginner Track
-1. **Start with SFT** (`methods/sft/`) - Learn the fundamentals of fine-tuning
-2. **Understand tokenization and rendering** - See how messages become tokens
-3. **Experiment with hyperparameters** - Learning rate, batch size, LoRA rank
-
-### Intermediate Track
-4. **Explore DPO** (`methods/dpo/`) - Preference-based training without RL
-5. **Try RLHF** (`methods/rlhf/`) - Classic reinforcement learning approach
-6. **Compare methods** - Understand tradeoffs between techniques
-
-### Advanced Track
-7. **Implement RLAIF** (`methods/rlaif/`) - AI-driven feedback loops
-8. **Master continual learning** (`methods/continual/`) - Update without forgetting
-9. **Build custom reward models** - Design your own optimization objectives
-
-## 🔬 Implemented Methods
-
-### ✅ Supervised Fine-Tuning (SFT)
-
-**Location:** `methods/sft/sft_train.ipynb`
-
-Train a Llama-3.2-1B model on the MBPP Python coding benchmark using LoRA (Low-Rank Adaptation).
-
-**Key Features:**
-- Dataset: Google's MBPP (Mostly Basic Python Problems)
-- Model: meta-llama/Llama-3.2-1B
-- Technique: LoRA fine-tuning (rank=32)
-- Training: 50 steps with Adam optimizer
-- Comparison: Side-by-side baseline vs. trained model evaluation
-
-**What You'll Learn:**
-- How to prepare training data for code generation
-- Building supervised examples with proper token weighting
-- Using the Tinker API for efficient training
-- Evaluating model improvements quantitatively
-
-### 🚧 Coming Soon
-
-- **DPO (Direct Preference Optimization)** - Simpler alternative to RLHF
-- **RLHF (Reinforcement Learning from Human Feedback)** - Classic alignment method
-- **RLAIF (RL from AI Feedback)** - Scalable AI-driven alignment
-- **RLVR (RL with Verifiable Rewards)** - Training with automated verification
-- **Knowledge Distillation** - Compress large models into smaller ones
-- **Self-Play** - Iterative self-improvement techniques
 
 ## 🛠️ Built With
 
@@ -139,18 +106,6 @@ Train a Llama-3.2-1B model on the MBPP Python coding benchmark using LoRA (Low-R
 - **[Datasets](https://huggingface.co/docs/datasets/)** - Dataset loading and processing
 - **PyTorch** - Deep learning framework
 - **NumPy** - Numerical computing
-
-## 📊 Results (Still a work in progress)
-
-### SFT on MBPP (50 steps)
-
-| Metric | Baseline | After SFT | Improvement |
-|--------|----------|-----------|-------------|
-| Loss   | 1.5811   | 0.0421    | 97.3% ↓     |
-| Code Quality | ❌ Generic | ✅ Task-specific | Significant |
-
-*Results from training on 200 examples, evaluated on held-out test set*
-
 
 ## 📚 Resources
 
