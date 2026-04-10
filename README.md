@@ -3,7 +3,7 @@
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A personal research lab for exploring, implementing, and eventually inventing post-training techniques for LLMs.
+A research and educational repo for exploring, implementing, and eventually inventing post-training techniques for LLMs.
 
 Everything runs on [Tinker](https://thinkingmachines.ai/) — a hosted training API that handles the GPU side, so experiments stay clean Python notebooks.
 
