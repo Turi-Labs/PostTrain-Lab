@@ -47,16 +47,19 @@ Transfer knowledge from a stronger teacher model into the student.
 
 Implement every major methodology as a clean, runnable notebook. Each notebook should be self-contained: dataset, training, and a clear before/after comparison.
 
+See [`PLAN.md`](./PLAN.md) for the full detailed plan.
+
 | Method | Notebook | Status |
 |---|---|---|
 | Supervised Fine-Tuning (SFT) | `methods/sft/sft_train.ipynb` | ✅ Done |
 | RL with Verifiable Rewards (RLVR) | `methods/rlvr/rlvr_train.ipynb` | ✅ Done |
-| Direct Preference Optimization (DPO) | `methods/dpo/` | 📋 Planned |
-| RLHF (reward model + RL) | `methods/rlhf/` | 📋 Planned |
-| On-policy Distillation | `methods/distillation/` | 📋 Planned |
-| Rubric-based RL | `methods/rubric_rl/` | 📋 Planned |
-| Self-Distillation (SDFT) | `methods/sdft/` | 📋 Planned |
-| Multi-Agent RL | `methods/multiagent_rl/` | 📋 Planned |
+| Direct Preference Optimization (DPO) | `methods/dpo/dpo_train.ipynb` | 📋 Planned |
+| Rubric-based RL | `methods/rubric_rl/rubric_rl_train.ipynb` | 📋 Planned |
+| RLHF (reward model + RL) | `methods/rlhf/rlhf_train.ipynb` | 📋 Planned |
+| On-policy Distillation | `methods/distillation/on_policy.ipynb` | 📋 Planned |
+| Off-policy Distillation | `methods/distillation/off_policy.ipynb` | 📋 Planned |
+| Self-Distillation (SDFT) | `methods/sdft/sdft_train.ipynb` | 📋 Planned |
+| Multi-Agent RL (MARL) | `methods/marl/marl_train.ipynb` | 📋 Planned |
 
 ### Phase 2 — Invention
 
