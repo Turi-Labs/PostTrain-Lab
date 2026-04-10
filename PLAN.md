@@ -128,11 +128,49 @@ Every notebook follows the same structure:
 
 ---
 
+## Stacking Patterns
+
+Some methods are designed to be combined, not just compared. These are known to work well together:
+
+### SFT → RL (Warm-starting)
+SFT first teaches the model the format and basic task. RL then optimizes for correctness on top of that foundation. Cold RL on a base model is hard — the model rarely finds correct solutions early on. SFT gives it a head start.
+**Used by:** InstructGPT, DeepSeek-R1, most RLHF pipelines.
+
+### SFT → DPO
+DPO works better when the model already knows the task. SFT aligns the model to the domain first, then DPO refines which style of response is preferred. Most DPO papers start from an SFT checkpoint, not a raw base model.
+
+### SFT → RLHF
+The classic 3-stage pipeline. SFT is literally stage 1 of RLHF. You never run RLHF cold.
+```
+SFT → reward model training → PPO against reward model
+```
+
+### Distill → RL (Push Beyond the Teacher)
+Distillation gets the student close to the teacher's level cheaply. RL then optimizes for outcomes — and since RL is not bounded by what the teacher knows, the student can surpass the teacher. The teacher sets the floor, RL removes the ceiling.
+**Used by:** DeepSeek-R1 (distill from R1 → RL on smaller models).
+
+### SFT → Distill → RL
+The full stack. SFT teaches format, distillation transfers deep knowledge from a teacher, RL pushes beyond both.
+
+### RLVR → Rubric RL
+RLVR optimizes for hard correctness (right/wrong). Once the model is good at getting correct answers, Rubric RL refines *how* it reasons — penalizing sloppy reasoning even on correct answers. Correctness first, quality second.
+
+### Iterative RLHF (Self-improving loop)
+Not a one-shot stack but a loop:
+```
+SFT → reward model → RL → collect new outputs → retrain reward model → RL again → ...
+```
+Each round the reward model gets better at judging, which makes the RL signal cleaner.
+**Used by:** Anthropic's Constitutional AI.
+
+---
+
 ## Phase 2 Preview
 
-Once all 9 notebooks are done, Phase 2 experiments will combine and extend these methods:
-- SFT → RL warm-starting
-- Distill → RL (push student beyond teacher)
-- Multi-objective RL (combine reward signals)
-- Iterative RLHF (retrain reward model in a loop)
-- Cross-method benchmarks (same task, all methods, who wins?)
+Once all 9 notebooks are done, Phase 2 experiments will run the stacking patterns above as controlled experiments:
+- SFT → RL: how much does warm-starting help vs. cold RL?
+- Distill → RL: can the 1B student surpass the teacher?
+- SFT → Distill → RL: the full stack on GSM8K
+- RLVR → Rubric RL: correctness first, then reasoning quality
+- Iterative RLHF: does looping the reward model actually help?
+- Cross-method benchmarks: same task, all methods, who wins?

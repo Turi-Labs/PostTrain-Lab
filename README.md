@@ -61,16 +61,23 @@ See [`PLAN.md`](./PLAN.md) for the full detailed plan.
 | Self-Distillation (SDFT) | `methods/sdft/sdft_train.ipynb` | 📋 Planned |
 | Multi-Agent RL (MARL) | `methods/marl/marl_train.ipynb` | 📋 Planned |
 
-### Phase 2 — Invention
+### Phase 2 — Stacking & Invention
 
-Once the foundation is solid, the interesting questions:
+Methods don't just compete — some are designed to stack. Phase 2 runs these known combinations as controlled experiments:
 
-- **SFT → RL**: bootstrap with SFT, continue with RL. How much does warm-starting help?
-- **Distill → RL**: distill from a strong teacher, then RL to push the student beyond the teacher
-- **Multi-objective RL**: combine multiple reward signals (correctness + conciseness + style)
-- **Curriculum RL**: progressively harder training problems vs. flat distribution
-- **Iterative RLHF**: train reward model → run RL → collect new preferences → retrain reward model → repeat
-- **Cross-method comparison**: same task, same model — SFT vs DPO vs RL. When does each win?
+| Stack | Idea |
+|---|---|
+| SFT → RL | warm-start RL with SFT instead of cold start |
+| SFT → DPO | align to domain first, then refine preferences |
+| SFT → RLHF | the classic 3-stage pipeline |
+| Distill → RL | teacher sets the floor, RL removes the ceiling |
+| SFT → Distill → RL | the full stack |
+| RLVR → Rubric RL | correctness first, reasoning quality second |
+| Iterative RLHF | loop: RL → collect outputs → retrain reward model → RL again |
+
+Plus open-ended invention: multi-objective RL, curriculum training, cross-method benchmarks on the same task.
+
+See [`PLAN.md`](./PLAN.md) for the full breakdown.
 
 ---
 
