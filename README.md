@@ -1,144 +1,119 @@
-# 🧠 PostTrain-Lab
+# PostTrain-Lab
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> A comprehensive, hands-on laboratory for exploring post-training techniques for Large Language Models
+A personal research lab for exploring, implementing, and eventually inventing post-training techniques for LLMs.
 
-PostTrain-Lab is a modular educational project designed to demystify the art and science of post-training LLMs. From supervised fine-tuning to cutting-edge reinforcement learning techniques, this repository provides a unified playground to experiment, learn, and compare different approaches.
-
-## 🎯 What is Post-Training?
-
-Post-training refers to the techniques applied to pre-trained language models to adapt them for specific tasks, align them with human preferences, or improve their capabilities. This includes:
-
-- **Supervised Fine-Tuning (SFT)** - Teaching models specific tasks with labeled examples
-- **Preference Learning (DPO, RLHF)** - Aligning models with human preferences
-- **Reinforcement Learning (RLAIF, RLVR)** - Optimizing models through reward signals
-- **Continual Learning** - Updating models without forgetting previous knowledge
-- **Distillation** - Transferring knowledge from larger to smaller models
-- **Self-Play** - Improving models through iterative self-improvement
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Python 3.11 or higher
-- [Tinker API](https://thinkingmachines.ai/) access (for training infrastructure)
-- Basic understanding of machine learning and LLMs
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/PostTrain-Lab.git
-cd PostTrain-Lab
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Set up your Tinker API key
-export TINKER_API_KEY=<your-key-here>
-```
-
-### Run Your First Training
-
-Start with supervised fine-tuning on the MBPP coding dataset:
-
-```bash
-# Open the SFT notebook
-jupyter notebook methods/sft/sft_train.ipynb
-```
-
-This notebook will guide you through:
-1. Loading and preparing the MBPP dataset
-2. Setting up a LoRA training client with Llama-3.2-1B
-3. Training the model for 50 steps
-4. Comparing baseline vs. fine-tuned performance
-
-
-## 📊 Results (Still a work in progress)
-
-### SFT on MBPP (50 steps)
-
-| Metric | Baseline | After SFT | Improvement |
-|--------|----------|-----------|-------------|
-| Loss   | 1.5811   | 0.0421    | 97.3% ↓     |
-| Code Quality | ❌ Generic | ✅ Task-specific | Significant |
-
-*Results from training on 200 examples, evaluated on held-out test set*
-
-
-## 📁 Project Structure
-
-```
-PostTrain-Lab/
-├── data/                    # Datasets for training and evaluation
-│   ├── sft/                # Supervised fine-tuning data
-│   ├── preference/         # Preference pairs for DPO/RLHF
-│   ├── synthetic/          # Synthetically generated data
-│   └── evaluation/         # Evaluation benchmarks
-│
-├── methods/                # Implementation of post-training techniques
-│   ├── sft/               # ✅ Supervised Fine-Tuning
-│   ├── dpo/               # 🚧 Direct Preference Optimization
-│   ├── rlhf/              # 🚧 Reinforcement Learning from Human Feedback
-│   ├── rlaif/             # 🚧 RL from AI Feedback
-│   ├── rlvr/              # 🚧 RL with Verifiable Rewards
-│   ├── continual/         # 🚧 Continual Learning
-│   ├── distillation/      # 🚧 Knowledge Distillation
-│   ├── selfplay/          # 🚧 Self-Play Training
-│   └── finetuning/        # 🚧 Advanced Fine-Tuning Techniques
-│
-├── reward_models/          # Reward model implementations
-├── trainers/               # Training utilities and loops
-├── evaluators/             # Evaluation metrics and benchmarks
-├── utils/                  # Shared utilities
-└── scripts/                # Automation scripts
-```
-
-**Legend:** ✅ Complete | 🚧 In Progress | 📋 Planned
-
-
-## 🛠️ Built With
-
-- **[Tinker API](https://thinkingmachines.ai/)** - High-performance LLM training infrastructure
-- **[Transformers](https://huggingface.co/transformers/)** - Tokenizers and model utilities
-- **[Datasets](https://huggingface.co/docs/datasets/)** - Dataset loading and processing
-- **PyTorch** - Deep learning framework
-- **NumPy** - Numerical computing
-
-## 📚 Resources
-
-### Papers & References
-- [LoRA: Low-Rank Adaptation](https://arxiv.org/abs/2106.09685)
-- [Direct Preference Optimization](https://arxiv.org/abs/2305.18290)
-- [RLHF: Learning to Summarize](https://arxiv.org/abs/2009.01325)
-- [Constitutional AI](https://arxiv.org/abs/2212.08073)
-
-### Tutorials
-- [Tinker Documentation](https://thinkingmachines.ai/docs)
-- [Understanding LoRA](https://huggingface.co/docs/peft/conceptual_guides/lora)
-- [RLHF Explained](https://huggingface.co/blog/rlhf)
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [Thinking Machines](https://thinkingmachines.ai/) for the 5k Grant.
-- The open-source ML community for inspiration and tools
-- All contributors who help make this project better
-
-## 📬 Contact
-
-Have questions or suggestions? Feel free to:
-- Open an issue
-- Start a discussion
-- Reach out on Twitter/X
+Everything runs on [Tinker](https://thinkingmachines.ai/) — a hosted training API that handles the GPU side, so experiments stay clean Python notebooks.
 
 ---
 
-**⭐ Star this repo if you find it helpful!**
+## The Goal
 
-Built with ❤️ for the ML community
+Post-training is where a pre-trained model becomes actually useful. This lab exists to:
+
+1. **Master the foundation** — implement every known post-training methodology from scratch, understand what each one does and when it works
+2. **Invent new pipelines** — once the fundamentals are solid, combine and extend them in ways that haven't been tried
+
+---
+
+## Post-Training Methodologies
+
+There are 4 core approaches. Everything else (math RL, code RL, tool use RL) is just one of these with a different dataset or reward signal.
+
+### 1. Supervised Fine-Tuning (SFT)
+Standard next-token prediction on labeled data. The simplest and most common form of post-training. Teaches a model new behaviors by showing it examples.
+
+### 2. Reinforcement Learning (RL)
+The model generates outputs, and a reward signal tells it what was good. The reward can come from anything — a verifier, a code executor, an LLM judge, a math checker. The model learns to maximize that reward.
+
+### 3. Preference Learning
+Align the model with what humans (or AI) prefer, rather than just labelled examples.
+- **DPO** — learns directly from (chosen, rejected) pairs. No reward model needed.
+- **RLHF** — first trains a reward model on preferences, then runs RL against it.
+
+### 4. Distillation
+Transfer knowledge from a stronger teacher model into the student.
+- **On-policy** — student generates, teacher scores/corrects, student learns from that
+- **Off-policy** — student learns from pre-collected teacher outputs
+- **SDFT** (Self-Distillation) — no teacher needed; model distills from itself using forward KL
+
+---
+
+## Roadmap
+
+### Phase 1 — Foundation
+
+Implement every major methodology as a clean, runnable notebook. Each notebook should be self-contained: dataset, training, and a clear before/after comparison.
+
+| Method | Notebook | Status |
+|---|---|---|
+| Supervised Fine-Tuning (SFT) | `methods/sft/sft_train.ipynb` | ✅ Done |
+| RL with Verifiable Rewards (RLVR) | `methods/rlvr/rlvr_train.ipynb` | ✅ Done |
+| Direct Preference Optimization (DPO) | `methods/dpo/` | 📋 Planned |
+| RLHF (reward model + RL) | `methods/rlhf/` | 📋 Planned |
+| On-policy Distillation | `methods/distillation/` | 📋 Planned |
+| Rubric-based RL | `methods/rubric_rl/` | 📋 Planned |
+| Self-Distillation (SDFT) | `methods/sdft/` | 📋 Planned |
+| Multi-Agent RL | `methods/multiagent_rl/` | 📋 Planned |
+
+### Phase 2 — Invention
+
+Once the foundation is solid, the interesting questions:
+
+- **SFT → RL**: bootstrap with SFT, continue with RL. How much does warm-starting help?
+- **Distill → RL**: distill from a strong teacher, then RL to push the student beyond the teacher
+- **Multi-objective RL**: combine multiple reward signals (correctness + conciseness + style)
+- **Curriculum RL**: progressively harder training problems vs. flat distribution
+- **Iterative RLHF**: train reward model → run RL → collect new preferences → retrain reward model → repeat
+- **Cross-method comparison**: same task, same model — SFT vs DPO vs RL. When does each win?
+
+---
+
+## Project Structure
+
+```
+PostTrain-Lab/
+├── methods/                # One folder per methodology
+│   ├── sft/               # Supervised Fine-Tuning
+│   ├── rlvr/              # RL with Verifiable Rewards
+│   ├── dpo/               # Direct Preference Optimization
+│   ├── rlhf/              # RLHF pipeline
+│   ├── distillation/      # Knowledge Distillation
+│   ├── rubric_rl/         # Rubric-based RL
+│   ├── sdft/              # Self-Distillation Fine-Tuning
+│   └── multiagent_rl/     # Multi-Agent RL
+│
+└── tinker-cookbook/        # Reference implementations (from Thinking Machines)
+```
+
+---
+
+## Getting Started
+
+```bash
+git clone https://github.com/yourusername/PostTrain-Lab.git
+cd PostTrain-Lab
+pip install -r requirements.txt
+export TINKER_API_KEY=<your-key>
+```
+
+Start with SFT:
+
+```bash
+jupyter notebook methods/sft/sft_train.ipynb
+```
+
+---
+
+## Infrastructure
+
+Built on [Tinker](https://thinkingmachines.ai/) — training loops run locally in Python, GPU work runs remotely via the Tinker API.
+
+---
+
+## Acknowledgments
+
+- [Thinking Machines](https://thinkingmachines.ai/) for the $5k grant
+- The [tinker-cookbook](./tinker-cookbook/) for reference implementations
